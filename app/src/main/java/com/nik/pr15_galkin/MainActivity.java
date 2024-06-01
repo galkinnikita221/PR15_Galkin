@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
 
 import java.io.File;
 
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
             mediaRecorder.start();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void recordStop(View v) {
+        if (mediaRecorder != null) {
+            mediaRecorder.stop();
         }
     }
 }
