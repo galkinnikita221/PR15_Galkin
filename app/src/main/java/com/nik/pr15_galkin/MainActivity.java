@@ -7,6 +7,8 @@ import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
 
     private MediaRecorder mediaRecorder;
@@ -23,6 +25,25 @@ public class MainActivity extends AppCompatActivity {
         if (mediaRecorder != null) {
             mediaRecorder.release();
             mediaRecorder = null;
+        }
+    }
+
+    public void recordStart() {
+        try {
+            realeaseRecorder();
+            File outFile = new File(fileName);
+            if (outFile.exists()) {
+                outFile.delete();
+            }
+            mediaRecorder = new MediaRecorder();
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+            mediaRecorder.setOutputFile(fileName);
+            mediaRecorder.prepare();
+            mediaRecorder.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
